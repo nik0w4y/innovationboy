@@ -1,21 +1,22 @@
-from typing import dataclass_transform
-
 import pygame, pytmx
 
-pygame.init()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, pygame.RESIZABLE)
 clock = pygame.time.Clock()
 running = True
 tmxdata = pytmx.load_pygame("data/tmx/overworld.tmx")
-player = pygame.image.load("graphics/player/player1.png")
 mult = 32
-print(tmxdata.layers,"\n")
+
+import player
+
+player1 = player.Player(tmxdata.get_object_by_name("playerspawn").x,tmxdata.get_object_by_name("playerspawn").y)
+
 while running:
-    screen.fill((0,0,0))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         
+    screen.fill((0,0,0))
+
     check1 = 1
     i1 = 0
     while check1 == 1:
@@ -27,9 +28,8 @@ while running:
         if i1 > 3:
             check1 = 0
 
-
      
-    screen.blit(player, (tmxdata.get_object_by_name("playerspawn").x, tmxdata.get_object_by_name("playerspawn").y))
+    screen.blit(player1.draw(), player1.move())
     pygame.display.flip()
 
 
