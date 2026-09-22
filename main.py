@@ -7,7 +7,7 @@ screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, pygame.RESIZABLE)
 clock = pygame.time.Clock()
 running = True
 tmxdata = pytmx.load_pygame("data/tmx/overworld.tmx")
-player = pygame.image.load("graphics/player1.png")
+player = pygame.image.load("graphics/player/player1.png")
 mult = 32
 print(tmxdata.layers,"\n")
 while running:
@@ -26,7 +26,10 @@ while running:
         i1 += 1
         if i1 > 3:
             check1 = 0
-    screen.blit(player, (list(tmxdata.layers[7])[740].x,list(tmxdata.layers[7])[740].y))
+
+
+     
+    screen.blit(player, (tmxdata.get_object_by_name("playerspawn").x, tmxdata.get_object_by_name("playerspawn").y))
     pygame.display.flip()
 
 
