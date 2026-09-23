@@ -1,10 +1,11 @@
-import pygame, pytmx
+import pygame, pytmx, time
 
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, pygame.RESIZABLE)
 clock = pygame.time.Clock()
 running = True
 tmxdata = pytmx.load_pygame("data/tmx/overworld.tmx")
 mult = 32
+start_time = pygame.time.get_ticks()
 
 import player
 
@@ -29,10 +30,9 @@ while running:
             check1 = 0
 
      
-    screen.blit(player1.draw(), player1.move())
+    screen.blit(player1.draw(pygame.time.get_ticks() - start_time), player1.move())
     pygame.display.flip()
 
 
     clock.tick(60)  
-
 pygame.quit()
