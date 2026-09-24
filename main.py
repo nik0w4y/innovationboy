@@ -21,16 +21,21 @@ while running:
     check1 = 1
     i1 = 0
     while check1 == 1:
-        for y in range(tmxdata.layers[i1].height):
-            for x in range(tmxdata.layers[i1].width):
-                if tmxdata.layers[i1].data[y][x] != 0:
-                    screen.blit(tmxdata.get_tile_image(x, y, i1), (x*mult, y*mult))
+        if i1 != 1:
+            for y in range(tmxdata.layers[i1].height):
+                for x in range(tmxdata.layers[i1].width):
+                    if tmxdata.layers[i1].data[y][x] != 0:
+                        screen.blit(tmxdata.get_tile_image(x, y, i1), (x*mult, y*mult))
         i1 += 1
         if i1 > 3:
             check1 = 0
 
      
     screen.blit(player1.draw(pygame.time.get_ticks() - start_time), player1.move())
+    for y in range(tmxdata.layers[1].height):
+        for x in range(tmxdata.layers[1].width):
+            if tmxdata.layers[1].data[y][x] != 0:
+                screen.blit(tmxdata.get_tile_image(x, y, 1), (x*mult, y*mult))
     pygame.display.flip()
 
 
