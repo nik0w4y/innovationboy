@@ -17,57 +17,25 @@ while running:
             running = False
         
     screen.fill((0,0,0))
-
-    playerx = player1.move()[0]
-    playery = player1.move()[1]
-
-
     
-
-    
-    if tmxdata.layers[0].data[int(playery/mult)][int(playerx/mult)] != 0 and tmxdata.layers[0].data[int(playery/mult)][int(playerx/mult) + 1] != 0:
-        
-        check1 = 1
-        i1 = 0
-        while check1 == 1:
-            if i1 != 2:
-                for y in range(tmxdata.layers[i1].height):
-                    for x in range(tmxdata.layers[i1].width):
-                        if tmxdata.layers[i1].data[y][x] != 0:
-                            screen.blit(tmxdata.get_tile_image(x, y, i1), (x*mult + middlex - player1.x, y*mult + middley - player1.y + 16))
-            i1 += 1
-            if i1 > 4:
-                check1 = 0
-
-        screen.blit(player1.draw(pygame.time.get_ticks() - start_time), ((screen.width/2 - 32, screen.height/2 - 32)))
-        prevplayerx = playerx
-        prevplayery = playery
+    player1.move()  
+    if tmxdata.layers[0].data[int(player1.y/mult)][int(player1.x/mult)] != 0 and tmxdata.layers[0].data[int(player1.y/mult)][int(player1.x/mult) + 1] != 0:
+        prevplayerx = player1.x
+        prevplayery = player1.y
     else:
-
-
-
-
         player1.x = prevplayerx
         player1.y = prevplayery
 
-        check1 = 1
-        i1 = 0
-        while check1 == 1:
-            if i1 != 2:
-                for y in range(tmxdata.layers[i1].height):
-                    for x in range(tmxdata.layers[i1].width):
-                        if tmxdata.layers[i1].data[y][x] != 0:
-                            screen.blit(tmxdata.get_tile_image(x, y, i1), (x*mult + middlex - player1.x, y*mult + middley - player1.y + 16))
-            i1 += 1
-            if i1 > 4:
-                check1 = 0
 
+    for i in range(4):
+        if i == 2:
+            continue
+        for y in range(tmxdata.layers[i].height):
+            for x in range(tmxdata.layers[i].width):
+                if tmxdata.layers[i].data[y][x] != 0:
+                    screen.blit(tmxdata.get_tile_image(x, y, i), (x*mult + middlex - player1.x, y*mult + middley - player1.y + 16))
 
-
-        screen.blit(player1.draw(pygame.time.get_ticks() - start_time), ((screen.width/2 - 32, screen.height/2 -32)))
-        
-
-
+    screen.blit(player1.draw(pygame.time.get_ticks() - start_time), ((middlex, middley)))
 
     for y in range(tmxdata.layers[2].height):
         for x in range(tmxdata.layers[2].width):
